@@ -13,7 +13,7 @@ const Reviews = ({ id }) => {
 		fetchReview(id).then((data) => {
 			setReviews(data.results);
 		});
-	}, []);
+	}, [id]);
 	// console.log(reviews);
 	return reviews.length === 0 ? (
     <h3>Sorry, we don't have any reviews!</h3>

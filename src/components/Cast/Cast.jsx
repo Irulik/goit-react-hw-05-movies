@@ -14,7 +14,7 @@ const Cast = ({ id }) => {
 		fetchCast(id).then((data) => {
 			setCast(data.cast);
 		});
-	}, []);
+	}, [id]);
 	// console.log(cast);
 	// const top20Cast = cast.slice(0, 20); //на випадок обмеження кількості акторів
 	return (
