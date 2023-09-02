@@ -80,6 +80,4 @@ display: flex;
 flex-wrap: wrap;
 gap: 12px;
 `;
-export const ReviewsGroup = styled.div` 
-display: none;
-`;
+export const ReviewsGroup = styled.div``;

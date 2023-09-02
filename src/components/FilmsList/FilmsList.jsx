@@ -28,8 +28,8 @@ const FilmsList = ({ movies }) => {
 			) : (
 				movieList.map((movie) => (
 					<ItemFilms key={movie.id}>
-						<MovieMiniPoster><img src={ "https://image.tmdb.org/t/p/w500//" + movie.poster_path } alt={movie.title}/></MovieMiniPoster>
 						<Link state={{ from: location }} to={`/movies/${movie.id}`}>
+							<MovieMiniPoster><img src={ "https://image.tmdb.org/t/p/w500//" + movie.poster_path } alt={movie.title}/></MovieMiniPoster>
 							{movie.original_title}
 						</Link>
 					</ItemFilms>

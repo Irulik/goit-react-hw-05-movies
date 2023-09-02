@@ -8,24 +8,21 @@ export const ListFilms = styled.ul`
 	gap: 10px;
 `;
 export const ItemFilms = styled.li`
-	font-weight: 700;
-	font-size: 20px;
-	display: flex;
-	align-items: center;
 	flex-grow: 1;
-	padding: 16px;
-	overflow: hidden;
-  	position: relative;
-  	border-radius: 8px;
-	&:hover, &:focus{
+	&:hover a, &:focus a{
 		background-color: var(--hover-accent-2);
 		color: var(--cta-text);
 	}
-	&:hover>div, &:focus>div{
-		opacity: 0.5;
-	}
 	a{
 		position: relative;
+		padding: 16px;
+		font-weight: 700;
+		font-size: 20px;
+		display: flex;
+		align-items: center;
+		overflow: hidden;
+	  	position: relative;
+	  	border-radius: 8px;
 	}
 `;
 export const MovieMiniPoster = styled.div`
