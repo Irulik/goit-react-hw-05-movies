@@ -1,5 +1,5 @@
-import { Suspense } from 'react';
-import { useParams, Outlet } from 'react-router-dom';
+// import { Suspense, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchMovieDetails } from 'api/fetchApi';
 import { useLocation, Link } from 'react-router-dom';
@@ -26,6 +26,7 @@ const MovieDetails = () => {
     const [movie, setMovie] = useState({});
     const [genreList, setGenreList] = useState([]);
     const navigate = useNavigate();
+    const navigationHistory = JSON.parse(sessionStorage.getItem('navigationHistory')) || [];
 
     useEffect(() => {
         fetchMovieDetails(productId.id).then((data) => {
@@ -41,12 +42,25 @@ const MovieDetails = () => {
         posterPath = 'https://cdn.create.vista.com/api/media/small/324908572/stock-vector-3d-cinema-film-strip-in';
     }
 
+    const goBackToPreviousValidUrl = () => {
+        let previousUrl = '';
+        for (let i = navigationHistory.length - 1; i >= 0; i--) {
+            const url = navigationHistory[i];
+            if (!url.includes('cast') && !url.includes('reviews') && url !== location.pathname) {
+                console.log();
+                previousUrl = url;
+                break;
+            }
+        }
+        navigate(previousUrl || '/movies');
+    };
+
     return (
         <>
             <Movie>
                 <MovieDesc>
                     <MovieLeft>
-                        <button onClick={() => navigate(-1)}>Go Back</button>
+                        <button onClick={goBackToPreviousValidUrl}>Go Back</button>
                         <MoviePoster><img src={ posterPath } alt={movie.title}/></MoviePoster>
                     </MovieLeft>
                     <MovieRight>
@@ -67,9 +81,6 @@ const MovieDetails = () => {
                     </Link>
                 </MovieButtons>
             </Movie>
-            <Suspense fallback={<div>Loading...</div>}>
-                <Outlet />
-            </Suspense>
         </> 
     );
 };

@@ -36,6 +36,7 @@ const Cast = () => {
     const [genreList, setGenreList] = useState([]);
     const [cast, setCast] = useState([]);
     const navigate = useNavigate();
+    const navigationHistory = JSON.parse(sessionStorage.getItem('navigationHistory')) || [];
 
     useEffect(() => {
         fetchMovieDetails(productId.id).then((data) => {
@@ -54,12 +55,24 @@ const Cast = () => {
         posterPath = 'https://cdn.create.vista.com/api/media/small/324908572/stock-vector-3d-cinema-film-strip-in';
     }
 
+    const goBackToPreviousValidUrl = () => {
+        let previousUrl = '';
+        for (let i = navigationHistory.length - 1; i >= 0; i--) {
+            const url = navigationHistory[i];
+            if (!url.includes('cast') && !url.includes('reviews') && url !== location.pathname) {
+                previousUrl = url;
+                break;
+            }
+        }
+        navigate(previousUrl || '/movies');
+    };
+
     return (
         <>
             <Movie>
                 <MovieDesc>
                     <MovieLeft>
-                        <button onClick={() => navigate(-1)}>Go Back</button>
+                        <button onClick={goBackToPreviousValidUrl}>Go Back</button>
                         <MoviePoster><img src={ posterPath } alt={movie.title}/></MoviePoster>
                     </MovieLeft>
                     <MovieRight>

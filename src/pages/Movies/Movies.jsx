@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { fetchSearchApi } from 'api/fetchApi';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import Notiflix from 'notiflix';
+
 import {
     MoviesForm,
     MoviesInput,
@@ -17,6 +18,7 @@ export const Movies = () => {
     const [input, setInput] = useState('');
     const inputParam = searchParams.get('filter') ?? '';
     const location = useLocation();
+      const navigationHistory = JSON.parse(sessionStorage.getItem('navigationHistory')) || [];
 
     useEffect(() => {
         if (inputParam) {
@@ -46,6 +48,9 @@ export const Movies = () => {
         setInput('');
 
         fetchMovies(input);
+
+        navigationHistory.push("/movies?filter="+input);
+        sessionStorage.setItem('navigationHistory', JSON.stringify(navigationHistory));
     };
 
     const onChangeInput = value => {
