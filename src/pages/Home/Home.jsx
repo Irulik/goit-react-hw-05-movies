@@ -7,7 +7,6 @@ import { useLocation } from 'react-router-dom';
 const Home = () => {
 	const [movies, setMovies] = useState([]);
 	const location = useLocation();
-    const navigate = useNavigate();
     const navigationHistory = JSON.parse(sessionStorage.getItem('navigationHistory')) || [];
 
 	useEffect(() => {
@@ -15,9 +14,10 @@ const Home = () => {
 	}, []);
 
 	useEffect(() => {
-        navigationHistory.push(location.pathname);
-        sessionStorage.setItem('navigationHistory', JSON.stringify(navigationHistory));
-    }, [location.pathname]);
+	    navigationHistory.push(location.pathname);
+	    sessionStorage.setItem('navigationHistory', JSON.stringify(navigationHistory));
+	}, [location.pathname, navigationHistory]);
+
 
 	return (
 		<>
